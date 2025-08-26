@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { NoteCard } from "./note-card"
 import { NoteModal } from "./note-modal"
-import { Navbar } from "./navbar"
+
 import { Button } from "@/components/ui/button"
 import { Filter } from "lucide-react"
 
@@ -135,12 +135,7 @@ export function NotesGrid() {
 
   return (
     <>
-      <Navbar
-        onSearch={setSearchTerm}
-        onAddNote={handleCreateNote}
-        onFilterByTag={setTagFilter}
-        availableTags={allTags}
-      />
+      
 
       <section className="py-20 px-6 pt-32">
         <div className="max-w-7xl mx-auto">

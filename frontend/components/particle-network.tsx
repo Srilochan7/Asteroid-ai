@@ -14,7 +14,7 @@ interface Particle {
 export function ParticleNetwork() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const particlesRef = useRef<Particle[]>([])
-  const animationRef = useRef<number>()
+  const animationRef = useRef<number | null>(null)
 
   useEffect(() => {
     const canvas = canvasRef.current

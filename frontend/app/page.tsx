@@ -17,8 +17,8 @@ export default function HomePage() {
     return (
       <LandingPage
         onNavigateToNotes={() => setCurrentPage("notes")}
-        onNavigateToFeatures={() => setCurrentPage("features")}
-        onNavigateToAbout={() => setCurrentPage("about")}
+        // onNavigateToFeatures={() => setCurrentPage("features")}
+        // onNavigateToAbout={() => setCurrentPage("about")}
       />
     )
   }

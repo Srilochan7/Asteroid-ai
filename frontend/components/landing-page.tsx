@@ -104,7 +104,7 @@ export function LandingPage({ onNavigateToNotes }: { onNavigateToNotes: () => vo
         </div>
       </div>
 
-      {trailPoints.map((point, index) => (
+      {/* {trailPoints.map((point, index) => (
         <div
           key={point.id}
           className="meteor-trail fixed pointer-events-none z-49"
@@ -115,7 +115,16 @@ export function LandingPage({ onNavigateToNotes }: { onNavigateToNotes: () => vo
             opacity: Math.max(0.1, 1 - (index / trailPoints.length) * 0.9), // More gradual fade for flame effect
           }}
         />
-      ))}
+      ))} */}
+
+      {trailPoints.map((point, index) => (
+  <div
+    key={`${point.id}-${index}`}
+    className="meteor-trail fixed pointer-events-none z-49"
+    style={{ left: point.x, top: point.y }}
+  />
+))}
+
 
       {sparks.map((spark, index) => (
         <div
