@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button"
 
 export function LandingPage({ onNavigateToNotes }: { onNavigateToNotes: () => void }) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+// const [cursor, setCursor] = useState({ x: 0, y: 0 })  
+
   const [trailPoints, setTrailPoints] = useState<Array<{ x: number; y: number; id: number }>>([])
   const [sparks, setSparks] = useState<Array<{ x: number; y: number; id: number; vx: number; vy: number }>>([])
   const [movingStars, setMovingStars] = useState<
@@ -45,14 +47,16 @@ export function LandingPage({ onNavigateToNotes }: { onNavigateToNotes: () => vo
     return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTrailPoints((prev) => prev.slice(1))
-      setSparks((prev) => prev.slice(1))
-    }, 60) // Faster cleanup for smoother flame trail animation
+//   useEffect(() => {
+//   const interval = setInterval(() => {
+//     setCursor((prev) => ({
+//       x: prev.x + (mousePosition.x - prev.x) * 0.15, // lag factor
+//       y: prev.y + (mousePosition.y - prev.y) * 0.15,
+//     }))
+//   }, 16) // ~60fps
+//   return () => clearInterval(interval)
+// }, [mousePosition])
 
-    return () => clearInterval(interval)
-  }, [])
 
   useEffect(() => {
     const newMovingStars = Array.from({ length: 100 }, (_, i) => ({
@@ -86,23 +90,20 @@ export function LandingPage({ onNavigateToNotes }: { onNavigateToNotes: () => vo
   return (
     <div className="min-h-screen bg-background relative overflow-hidden meteor-cursor">
       <div
-        className="fixed pointer-events-none z-50"
-        style={{
-          left: mousePosition.x - 4,
-          top: mousePosition.y - 4,
-        }}
-      >
-        <div className="relative w-2 h-2">
-          {/* Main meteor body with bright white core and glow */}
-          <div className="w-full h-full bg-white rounded-full shadow-2xl">
-            <div className="absolute inset-0 bg-gradient-radial from-white via-gray-100 to-gray-300 rounded-full animate-meteor-tumble"></div>
-          </div>
+  className="fixed pointer-events-none z-50"
+  style={{
+    left: mousePosition.x - 2,
+    top: mousePosition.y - 2,
+  }}
+>
+  <div className="relative w-1 h-1">
+    {/* Small white asteroid */}
+    <div className="absolute inset-0 bg-white rounded-full shadow-lg"></div>
+    {/* Subtle white glow */}
+    <div className="absolute inset-0 rounded-full bg-white blur-sm opacity-60 scale-150"></div>
+  </div>
+</div>
 
-          {/* Bright glowing core */}
-          <div className="absolute inset-0 bg-white rounded-full opacity-100 animate-pulse"></div>
-          <div className="absolute top-0.5 left-0.5 w-1 h-1 bg-white rounded-full opacity-100 shadow-lg"></div>
-        </div>
-      </div>
 
       {/* {trailPoints.map((point, index) => (
         <div
@@ -117,13 +118,20 @@ export function LandingPage({ onNavigateToNotes }: { onNavigateToNotes: () => vo
         />
       ))} */}
 
-      {trailPoints.map((point, index) => (
+{trailPoints.map((point, index) => (
   <div
     key={`${point.id}-${index}`}
-    className="meteor-trail fixed pointer-events-none z-49"
-    style={{ left: point.x, top: point.y }}
+    className="fixed w-2 h-2 rounded-full pointer-events-none z-40"
+    style={{
+      left: point.x,
+      top: point.y,
+      background: "radial-gradient(circle, rgba(255,255,255,0.8), rgba(255,255,255,0))",
+      opacity: 1 - index / trailPoints.length,
+      transform: `scale(${1 - index / trailPoints.length})`,
+    }}
   />
 ))}
+
 
 
       {sparks.map((spark, index) => (

@@ -1,66 +1,54 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import Image from "next/image"
 
 export function Logo({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
-  const [glowIntensity, setGlowIntensity] = useState(0.3)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setGlowIntensity(Math.random() * 0.5 + 0.3)
-    }, 2000)
-    return () => clearInterval(interval)
-  }, [])
-
+  // Increased the logo container sizes
   const sizeClasses = {
-    sm: "w-8 h-8",
-    md: "w-12 h-12",
-    lg: "w-20 h-20",
+    sm: "w-10 h-10", // was w-8 h-8
+    md: "w-14 h-14", // was w-12 h-12
+    lg: "w-24 h-24", // was w-20 h-20
   }
 
+  // Increased the primary text sizes to match
   const textSizes = {
-    sm: "text-lg",
-    md: "text-xl",
-    lg: "text-3xl",
+    sm: "text-xl", // was text-lg
+    md: "text-2xl", // was text-xl
+    lg: "text-4xl", // was text-3xl
+  }
+
+  // Updated image dimensions to match the new Tailwind classes in pixels
+  const imageDimensions = {
+    sm: { width: 40, height: 40 }, // w-10 = 2.5rem = 40px
+    md: { width: 56, height: 56 }, // w-14 = 3.5rem = 56px
+    lg: { width: 96, height: 96 }, // w-24 = 6rem = 96px
   }
 
   return (
-    <div className="flex items-center gap-3">
-      <div className={`${sizeClasses[size]} relative`}>
-        {/* Asteroid shape with glow */}
-        <div
-          className="w-full h-full rounded-full bg-gradient-to-br from-white to-gray-400 relative overflow-hidden"
-          style={{
-            boxShadow: `0 0 20px rgba(255, 255, 255, ${glowIntensity})`,
-          }}
-        >
-          {/* Crater effects */}
-          <div className="absolute top-2 left-2 w-2 h-2 rounded-full bg-gray-600 opacity-60"></div>
-          <div className="absolute bottom-3 right-2 w-1 h-1 rounded-full bg-gray-700 opacity-40"></div>
-          <div className="absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full bg-gray-500 opacity-50 transform -translate-x-1/2 -translate-y-1/2"></div>
-
-          {/* Orbital ring */}
-          <div
-            className="absolute inset-0 rounded-full border border-white/20 animate-spin"
-            style={{ animationDuration: "8s" }}
-          ></div>
-        </div>
-
-        {/* Floating particles */}
-        <div className="absolute -top-1 -right-1 w-1 h-1 bg-white rounded-full animate-pulse"></div>
-        <div
-          className="absolute -bottom-1 -left-1 w-0.5 h-0.5 bg-gray-300 rounded-full animate-pulse"
-          style={{ animationDelay: "1s" }}
-        ></div>
+    <div className="flex items-center gap-1"> {/* Increased gap for the larger logo */}
+      <div className={`${sizeClasses[size]} relative flex-shrink-0`}>
+        <Image
+          src="/logo.jpg"
+          alt="Asteroid AI Logo"
+          width={imageDimensions[size].width}
+          height={imageDimensions[size].height}
+          className="rounded-full object-cover"
+          priority
+        />
       </div>
 
-      <div className="flex flex-col">
-        <span className={`${textSizes[size]} font-bold text-white tracking-wider`}>ASTEROID</span>
-        <span
-          className={`${size === "sm" ? "text-xs" : size === "md" ? "text-sm" : "text-base"} text-gray-400 tracking-widest font-mono`}
+      {/* MODIFIED PART: Text is now on a single line */}
+      <div className="flex items-baseline gap-2">
+        <span className={`${textSizes[size]} font-bold text-white tracking-wider`}>
+          ASTEROID AI
+        </span>
+        {/* <span
+          className={`${
+            size === "sm" ? "text-sm" : size === "md" ? "text-base" : "text-lg"
+          } text-gray-400 tracking-widest font-mono`}
         >
           AI
-        </span>
+        </span> */}
       </div>
     </div>
   )
