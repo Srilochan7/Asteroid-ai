@@ -5,7 +5,7 @@ import { NoteCard } from "./note-card"
 import { NoteModal } from "./note-modal"
 
 import { Button } from "@/components/ui/button"
-import { Filter } from "lucide-react"
+import { Filter, Plus } from "lucide-react"
 
 interface Note {
   id: string
@@ -149,7 +149,7 @@ export function NotesGrid() {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 mb-8 items-center justify-between">
+          {/* <div className="flex flex-col sm:flex-row gap-4 mb-8 items-center justify-between">
             <div className="flex gap-4 items-center flex-wrap">
               <Button
                 variant={showStarredOnly ? "default" : "outline"}
@@ -168,7 +168,38 @@ export function NotesGrid() {
                 </div>
               )}
             </div>
-          </div>
+          </div> */}
+
+          <div className="flex flex-col sm:flex-row gap-4 mb-8 items-center justify-between">
+  <div className="flex gap-4 items-center flex-wrap">
+    <Button
+      variant={showStarredOnly ? "default" : "outline"}
+      onClick={() => setShowStarredOnly(!showStarredOnly)}
+      className="glass border-border/50"
+    >
+      <Filter className="w-4 h-4 mr-2" />
+      Starred
+    </Button>
+
+    <Button
+      onClick={handleCreateNote}
+      className="flex items-center space-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-white transition-all duration-200 hover:scale-105"
+    >
+      <Plus className="w-4 h-4" />
+      <span className="text-sm font-medium">Add Note</span>
+    </Button>
+
+    {tagFilter && (
+      <div className="flex items-center gap-2 px-3 py-1 bg-white/10 border border-white/20 rounded-full text-sm">
+        <span>#{tagFilter}</span>
+        <button onClick={() => setTagFilter("")} className="text-gray-400 hover:text-white">
+          ×
+        </button>
+      </div>
+    )}
+  </div>
+</div>
+
 
           {/* Notes Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
