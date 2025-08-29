@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 
 export function LandingPage({ onNavigateToNotes }: { onNavigateToNotes: () => void }) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  
 // const [cursor, setCursor] = useState({ x: 0, y: 0 })  
 
   const [trailPoints, setTrailPoints] = useState<Array<{ x: number; y: number; id: number }>>([])
