@@ -1,7 +1,5 @@
-from src import app
+from src.app import app  # Changed this line
 
 if __name__ == "__main__":
     import uvicorn
-
-
     uvicorn.run(app, host="0.0.0.0", port=8000)
