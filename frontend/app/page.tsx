@@ -71,7 +71,7 @@ export default function HomePage() {
                   </Button>
 
                   {/* Signout button */}
-                  <Button
+                  {/* <Button
                     variant="outline"
                     onClick={() => signOut({ redirectUrl: "/" })}
                     className="flex items-center gap-2 rounded-2xl border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2"
@@ -91,7 +91,7 @@ export default function HomePage() {
                       />
                     </svg>
                     Sign Out
-                  </Button>
+                  </Button> */}
                 </div>
               </div>
             </nav>
